@@ -12,9 +12,9 @@ bbox = [
 ]
 nx, ny = 10, 10  # number of columns and rows
 
-featureName = "GobiAreas" # base for all subareas
-object_type = "Ground object" # the same for all subareas
-wikiLink = "https://en.wikipedia.org/wiki/Antarctica" # the same for all subareas
+featureName = "GobiAreas"  # base for all subareas
+object_type = "Ground object"  # the same for all subareas
+wikiLink = "https://en.wikipedia.org/wiki/Antarctica"  # the same for all subareas
 """"""""""""""""""""""""""""""""
 
 rec = [(bbox[0], bbox[1]), (bbox[0], bbox[3]),
@@ -38,12 +38,11 @@ def separation() -> list:
         result = MultiPolygon(split(result, splitter))
 
     coordinates_list = [list(part.exterior.coords) for part in result.geoms]
-    # print("coordinates_list[0]: ", coordinates_list[0])
-    coordinates_list.reverse()
+    coordinates_list.reverse()  # reverse coordinates list
     return coordinates_list
 
 
-def constractJSON(coordinates: list):
+def constructJSON(coordinates: list):
     features_list = []
 
     for x in range(len(coordinates)):
@@ -60,9 +59,7 @@ def constractJSON(coordinates: list):
             "geometry": {
                 "type": "Polygon",
                 "coordinates": [
-                        
-                            featureCoordinates
-                        
+                    featureCoordinates
                 ]
             }
         }
@@ -80,9 +77,7 @@ def write_down(features):
 
 def main():
     coordinates = separation()
-    # print(coordinates)
-    featuresList = constractJSON(coordinates)
-    # print(featuresList)
+    featuresList = constructJSON(coordinates)
     write_down(featuresList)
 
 
